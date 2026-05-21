@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMB Nav - Manual Interactivo para Conductores</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <style>
+        :root {
+            --tmb-red: #C61A22; /* Rojo corporativo de la cabecera app */
+            --tmb-orange: #FF5F00; /* Naranja TMB para acentos */
+            --bg-light: #F2F2F2; /* Fondo gris muy claro */
+            --surface-light: #FFFFFF;
+            --text-main: #212121;
+            --text-muted: #666666;
+            --border-radius-lg: 28px; /* Radio de los diálogos de la app */
+            --border-radius-md: 16px; 
+            --border-radius-sm: 8px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            
+            /* Colores de línea por defecto de la app */
+            --color-ida: #00BCD4; 
+            --color-vuelta: #E91E63;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-light: #121212;
+                --surface-light: #1E1E1E;
+                --text-main: #E0E0E0;
+                --text-muted: #A0A0A0;
+                --shadow: 0 4px 24px rgba(0,0,0,0.4);
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: var(--tmb-red);
+            color: white;
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-brand .icon-bus {
+            background: white;
+            color: var(--tmb-red);
+            padding: 8px;
+            border-radius: 50%;
+            font-size: 28px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-brand h1 {
+            font-size: 1.6rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- CONTAINER --- */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            color: var(--tmb-red);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-tabs {
+            margin: 2rem auto 0;
+            max-width: 880px;
+            text-align: left;
+        }
+
+        .hero-tab-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero-tab-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border: 1px solid rgba(0,0,0,0.12);
+            background: var(--surface-light);
+            color: var(--text-main);
+            border-radius: 999px;
+            padding: 0.95rem 1.4rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .hero-tab-link:hover,
+        .hero-tab-link.active {
+            background: var(--tmb-red);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 10px 25px rgba(198,26,34,0.12);
+        }
+
+        @media (max-width: 768px) {
+            .hero-tab-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-tab-link {
+                width: 100%;
+                max-width: 380px;
+            }
+        }
+
+        /* --- SECTIONS (Imagen Izda, Texto Dcha) --- */
+        .feature-section {
+            background: var(--surface-light);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+            overflow: hidden; /* Para asegurar que la imagen respeta el radio */
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-image-container {
+            flex: 0 0 40%; /* 40% para la imagen */
+            background-color: #F8F9FA; /* Fondo neutro para las capturas */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            border-right: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .feature-image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius-md);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-text-container {
+            flex: 1; /* El resto para el texto */
+            padding: 3rem;
+        }
+
+        @media (max-width: 992px) {
+            .feature-section { flex-direction: column; }
+            .feature-text-container { order: 1; padding: 2rem; }
+            .feature-image-container { order: 2; flex: 0 0 100%; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.05); width: 100%;}
+        }
+
+        h3 {
+            font-size: 2rem;
+            color: var(--tmb-red);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h3 .material-symbols-outlined {
+            font-size: 32px;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            color: var(--text-main);
+        }
+
+        /* --- DESGLOSE DE OPCIONES (Listas Estilizadas) --- */
+        .option-list {
+            list-style: none;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 1.2rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .option-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .option-icon {
+            color: var(--tmb-orange);
+            background: rgba(255, 95, 0, 0.1);
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .option-title {
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .option-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* --- BOTONES CUADRADOS COCHERAS --- */
+        .cocheras-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .cochera-card {
+            background: rgba(198, 26, 34, 0.03);
+            border: 2px solid rgba(198, 26, 34, 0.08);
+            padding: 1.8rem;
+            border-radius: var(--border-radius-md);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cochera-card:hover {
+            background: var(--surface-light);
+            border-color: var(--tmb-red);
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .cochera-card-title {
+            color: var(--tmb-red);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .cochera-card-address {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .cochera-card-note {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #1A1A1A;
+            color: #A0A0A0;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 4px solid var(--tmb-orange);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-brand">
+            <span class="material-symbols-outlined icon-bus">directions_bus</span>
+            <h1>TMB Nav</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <section class="hero">
+            <h2>Manual de Usuario Interactivo</h2>
+            <p>Guía de características, configuración y pasos iniciales para usar TMB Nav desde una sola página.</p>
+
+            <div class="hero-tabs">
+                <div class="hero-tab-buttons">
+                    <a class="hero-tab-link" href="#como-empezar">¿Cómo empezar?</a>
+                    <a class="hero-tab-link active" href="#configuracion">Configuración</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="como-empezar" class="feature-section">
+            <div class="feature-image-container">
+                <div>
+                    <img src="./assets/tuto 1.png" alt="Pulsa ajustes">
+                </div>
+                <div>
+                    <img src="./assets/tuto 2.png" alt="Selecciona línea">
+                </div>
+            </div>
+            <div class="feature-text-container">
+                <h3><span class="material-symbols-outlined">play_circle</span>Primeros pasos</h3>
+                <p>Placeholder: describe aquí qué debe ver el conductor en la pantalla principal y cómo empezar el proceso.</p>
+                <ul class="option-list">
+                    <li class="option-item">
+                        <span class="material-symbols-outlined option-icon">settings</span>
+                        <div>
+                            <div class="option-title">Pulsa en ajustes</div>
+                        </div>
+                    </li>
+                    <li class="option-item">
+                        <span class="material-symbols-outlined option-icon">route</span>
+                        <div>
+                            <div class="option-title">Seleccionar línea</div>
+                            <div class="option-desc">Desde el desplegable escoge la línea que vas a utilizar.</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="feature-section">
+            <div class="feature-image-container">
+                <img src="./assets/tuto 3.png" alt="Imagen de navegación">
+                <img src="./assets/tuto 4.png" alt="Imagen de navegación">
+            </div>
+            <div class="feature-text-container">
+                <h3><span class="material-symbols-outlined">navigation</span>Utiliza el navegador</h3>
+                <p>Placeholder: indica cómo activar el modo de navegación y qué debe hacer el conductor a continuación.</p>
+                <ul class="option-list">
+                    <li class="option-item">
+                        <span class="material-symbols-outlined option-icon">navigation</span>
+                        <div>
+                            <div class="option-title">Activa el modo navegación</div>
+                            <div class="option-desc">Pulsando el botón de navegación, TMB Nav se pone en modo GPS usando tu ubicación actual.</div>
+                        </div>
+                    </li>
+                    <li class="option-item">
+                        <span class="material-symbols-outlined option-icon">play_arrow</span>
+                        <div>
+                            <div class="option-title">Comienza tu ruta</div>
+                            <div class="option-desc">Si te encuentras en la parada de inicio o cerca de la línea seleccionada, puedes seguirla para tu jornada.</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="configuracion" class="feature-section">
+            <div class="feature-image-container">
+                <img src="./assets/Pantalla principal.png" alt="Captura de Navegación de Línea D40">
+            </div>
+            <div class="feature-text-container">
+                <h3><span class="material-symbols-outlined">map</span>Pantalla principal</h3>
+                <p></p>
+                <ul class="option-list">
+                    <li class="option-item">
+                        <span class="material-symbols-outlined option-icon">directions</span>
+                        <div>
+                            <div class="option-title">Boton navegación</div>
+                            <div class="option-desc">Activa el modo navegación una vez hayas seleccionado tu línea y comienza tu ruta con el respaldo que te ofrece TMB Nav.</div>
+                        </div>
+                    </li>
+                    <li class="option-item">
+                        <span class="material-symbols-outlined option-icon">grid_view</span>
+                        <div>
+                            <div class="option-title">Botón de opciones</div>
+                            <div class="option-desc">Toda la configuración en un clic. Accede desde aquí al selector de línea y más opciones de configuración.</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="feature-section">
+            <div class="feature-image-container">
+                <img src="./assets/modo navegacion.png" alt="Detalle de paradas en el mapa">
+            </div>
+            <div class="feature-text-container">
+                <h3><span class="material-symbols-outlined">spatial_audio_off</span>Sistema de Detección de Paradas</h3>
+                <p>Navegación asistida por GPS de alta precisión. La aplicación monitors tu posición en tiempo real para alertarte de la proximidad de marquesinas y postes de parada.</p>
+                
+                <ul class="option-list">
+                    <li class="option-item">
+                        <span class="material-symbols-outlined option-icon">my_location</span>
+                        <div>
+                            <div class="option-title">Radio de Acción de 150m</div>
+                            <div class="option-desc">El algoritmo de detección se activa automáticamente al entrar en un radio de 150 metros de la parada.</div>
+                        </div>
+                    </li>
+                    <li class="option-item">
+                        <span class="material-symbols-outlined option-icon">campaign</span>
+                        <div>
+                            <div class="option-title">Avisos Duales</div>
+                            <div class="option-desc">Incluye una alerta visual emergente 'Próxima parada: [Nombre]' y un aviso sonoro configurable (Bip).</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="feature-section">
+            <div class="feature-image-container">
+                <img src="./assets/Opciones de la app.png" alt="Pantalla de Configuración de TMB Nav">
+            </div>
+            <div class="feature-text-container">
+                <h3><span class="material-symbols-outlined">tune</span>Ajustes Visuales y de Mapa</h3>
+                <p>Adapta la interfaz de navegación a tus preferencias o necesidades de visibilidad durante el servicio.</p>
+                
+                <ul class="option-list">
+                    <li class="option-item">
+                        <span class="material-symbols-outlined option-icon">line_weight</span>
+                        <div>
+                            <div class="option-title">Ancho de Línea de Ruta</div>
+                            <div class="option-desc">Ajuste fino del grosor de la línea de trayecto en el mapa, de 5px a 30px.</div>
+                        </div>
+                    </li>
+                    <li class="option-item">
+                        <span class="material-symbols-outlined option-icon">directions_bus</span>
+                        <div>
+                            <div class="option-title">Tamaño de Icono de Bus</div>
+                            <div class="option-desc">Escalado del puntero de navegación (bus o flecha), de 30dp a 80dp.</div>
+                        </div>
+                    </li>
+                    <li class="option-item">
+                        <span class="material-symbols-outlined option-icon">palette</span>
+                        <div>
+                            <div class="option-title">Colores Personalizados de Ruta</div>
+                            <div class="option-desc">Asigna colores únicos para Ida ('Anada', defecto turquesa) y Vuelta ('Tornada', defecto rosa).</div>
+                        </div>
+                    </li>
+                    <li class="option-item">
+                        <span class="material-symbols-outlined option-icon">layers</span>
+                        <div>
+                            <div class="option-title">Tipos de Mapa</div>
+                            <div class="option-desc">Soporte para Normal, Satélite, Terreno e Híbrido según las condiciones del entorno.</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="feature-section">
+            <div class="feature-image-container">
+                <img src="./assets/Menu superior.png" alt="Diálogo de selección de cocheras">
+            </div>
+            <div class="feature-text-container">
+                <h3><span class="material-symbols-outlined">warehouse</span>Opciones menu Superior</h3>
+                <p>Actualizacion de datos sobre lineas. Reestablecer preferencias a estado por defecto.Acceso directo y rápido a los principales Centros Operativos de Negocio (CON) de TMB. Haz clic en una tarjeta para iniciar la navegación segura mediante Google Maps.</p>
+                
+                <div class="cocheras-grid"><div class="cochera-card">
+                        <div>
+                    
+                            <div class="cochera-card-title">Actualizacion de datos sobre lineas</div>
+                            <div class="cochera-card-address">Actualizacion de lineas de forma manual</div>
+                        </div>
+                      
+                    </div>
+                    
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Carrer+de+Jaume+Brossa,+s/n,+Barcelona" target="_blank" class="cochera-card">
+                        <div>
+                            <div class="cochera-card-title">Reestablecer preferencias a estado por defecto</div>
+                            <div class="cochera-card-address">Todos los ajustes a como estaban cuando descargaste TMB Nav</div>
+                        </div>
+                        <div class="cochera-card-note"></div> </a>
+                    
+                    <div  class="cochera-card">
+                        <div>
+                            <div class="cochera-card-title">Ir a cocheras</div>
+                            <div class="cochera-card-address">Accede a google maps directamente para retiraret a tu cochera</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.querySelectorAll('.hero-tab-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelectorAll('.hero-tab-link').forEach(item => item.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

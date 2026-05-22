@@ -185,13 +185,29 @@
             align-items: center;
             padding: 2rem;
             border-right: 1px solid rgba(0,0,0,0.05);
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Si hay más de una imagen, apilar en columna (soporta wrappers con <div> o imágenes directas) */
+        .feature-image-container:has(> div:nth-child(2)),
+        .feature-image-container:has(> img:nth-child(2)) {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .feature-image-container > div {
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
         .feature-image-container img {
-            max-width: 100%;
+            max-width: 90%;
             height: auto;
             border-radius: var(--border-radius-md);
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: block;
         }
 
         .feature-text-container {

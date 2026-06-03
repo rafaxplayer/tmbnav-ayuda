@@ -351,6 +351,49 @@
             font-style: italic;
         }
 
+        /* --- TELÉFONOS --- */
+        .feature-text-container.full-width {
+            width: 100%;
+            flex: 1 1 100%;
+        }
+
+        .phone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .phone-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--border-radius-md);
+            padding: 1rem;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+
+        .phone-card h4 {
+            color: var(--tmb-red);
+            font-size: 1.02rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .phone-card p {
+            margin-bottom: 0.35rem;
+            color: var(--text-main);
+            font-size: 0.98rem;
+        }
+
+        .phone-card a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .phone-card a:hover {
+            color: var(--tmb-orange);
+        }
+
         /* --- TAB CONTENT VISIBILITY --- */
         .tab-content {
             display: none;
@@ -396,6 +439,7 @@
                 <div class="hero-tab-buttons">
                     <a class="hero-tab-link active" data-tab="como-empezar">¿Cómo empezar?</a>
                     <a class="hero-tab-link" data-tab="configuracion">Configuración</a>
+                    <a class="hero-tab-link" data-tab="telefonos">Teléfonos</a>
                 </div>
             </div>
         </section>
@@ -616,6 +660,29 @@
             </div>
         </section>
         <!--Fin configuracion -->
+
+        <section id="telefonos" class="feature-section tab-content" data-tab="telefonos">
+            <div class="feature-text-container full-width">
+                <h3><span class="material-symbols-outlined">call</span>Teléfonos</h3>
+                <p>Lista de contactos y teléfonos de interés para el servicio y la operativa de TMB.</p>
+
+                <div class="phone-grid">
+                    <article class="phone-card"><h4>CENTRALITA</h4><p><a href="tel:+34932987000">+34 932 98 70 00</a></p></article>
+                    <article class="phone-card"><h4>PASES TMB</h4><p><a href="tel:+34932148331">+34 932 14 83 31</a></p></article>
+                    <article class="phone-card"><h4>COCHERA HORTA</h4><p><a href="tel:+34932148188">+34 932 14 81 88</a></p></article>
+                    <article class="phone-card"><h4>TRIÁNGULO</h4><p><a href="tel:+34932987509">+34 93 298 75 09</a></p></article>
+                    <article class="phone-card"><h4>ZONA FRANCA CALLE A</h4><p><a href="tel:+34932987010">932 987 010</a></p><p><a href="tel:+34932987030">932 987 030</a></p></article>
+                    <article class="phone-card"><h4>ZONA FRANCA CALLE Z</h4><p><a href="tel:+34609161794">609 16 17 94</a></p></article>
+                    <article class="phone-card"><h4>ZONA FRANCA CALLE 114</h4><p><a href="tel:+34638407117">638 40 71 17</a></p></article>
+                    <article class="phone-card"><h4>ZONA FRANCA CALLE 40</h4><p><a href="tel:+34610520230">610 52 02 30</a></p></article>
+                    <article class="phone-card"><h4>VESTUARI HORTA</h4><p><a href="tel:+34932148120">+34 93 214 81 20</a></p><p><a href="tel:+34932148435">+34 93 214 84 35</a></p></article>
+                    <article class="phone-card"><h4>CRT</h4><p><a href="tel:+34932148043">+34 93 214 80 43</a></p></article>
+                    <article class="phone-card"><h4>CRT EMERGENCIA</h4><p><a href="tel:+34900103381">900 10 33 81</a></p></article>
+                    <article class="phone-card"><h4>CENTRE MEDIC C.RIBES</h4><p><a href="tel:+34932148395">+34 93 214 83 95</a></p></article>
+                    <article class="phone-card"><h4>CONTRATACIÓN Y N</h4><p>Contacto pendiente de completar</p></article>
+                </div>
+            </div>
+        </section>
     </div>
 
     <script>

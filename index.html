@@ -292,6 +292,21 @@
             flex-shrink: 0;
         }
 
+        .step-number {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--tmb-red);
+            background: rgba(198, 26, 34, 0.08);
+            padding: 0;
+        }
+
         .option-title {
             font-weight: 500;
             font-size: 1.1rem;
@@ -463,21 +478,21 @@
                 <p></p>
                 <ul class="option-list">
                     <li class="option-item">
-                        <span class="material-symbols-outlined option-icon">settings</span>
+                        <span class="option-icon step-number">1</span>
                         <div>
                             <div class="option-title">Pulsa en ajustes</div>
                             <div class="option-desc">accede a las opciones de configuracion de TMB av
                         </div>
                     </li>
                     <li class="option-item">
-                        <span class="material-symbols-outlined option-icon">route</span>
+                        <span class="option-icon step-number">2</span>
                         <div>
                             <div class="option-title">Seleccionar línea</div>
                             <div class="option-desc">Desde el desplegable escoge la línea que vas a utilizar.</div>
                         </div>
                     </li>
                     <li class="option-item">
-                        <span class="material-symbols-outlined option-icon">route</span>
+                        <span class="option-icon step-number">3</span>
                         <div>
                             <div class="option-title">Seleccionar dirección o recorrido</div>
                             <div class="option-desc">Desde el diálogo, escoge qué dirección de la línea vas a realizar.</div>
@@ -497,7 +512,7 @@
                 <p></p>
                 <ul class="option-list">
                     <li class="option-item">
-                        <span class="material-symbols-outlined option-icon">navigation</span>
+                        <span class="option-icon step-number">4</span>
                         <div>
                             <div class="option-title">Activa el modo navegación</div>
                             <div class="option-desc">Pulsando el botón de navegación, TMB Nav se pone en modo GPS usando
@@ -505,7 +520,7 @@
                         </div>
                     </li>
                     <li class="option-item">
-                        <span class="material-symbols-outlined option-icon">play_arrow</span>
+                        <span class="option-icon step-number">5</span>
                         <div>
                             <div class="option-title">Comienza tu ruta</div>
                             <div class="option-desc">Si te encuentras en la parada de inicio o cerca de la línea

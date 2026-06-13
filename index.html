@@ -64,6 +64,7 @@
             padding: 1.2rem 2rem;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -74,6 +75,37 @@
             display: flex;
             align-items: center;
             gap: 15px;
+        }
+
+        .header-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .header-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .header-menu a:hover {
+            color: var(--tmb-orange);
+        }
+
+        @media (max-width: 768px) {
+            .header-menu {
+                gap: 1rem;
+            }
+
+            .header-menu a {
+                font-size: 0.9rem;
+            }
         }
 
         .header-brand .icon-bus {
@@ -431,6 +463,20 @@
             text-align: center;
             border-top: 4px solid var(--tmb-orange);
             font-size: 0.95rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-copyright {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #808080;
+            font-size: 0.9rem;
         }
     </style>
 </head>
@@ -442,6 +488,16 @@
             <span class="material-symbols-outlined icon-bus">directions_bus</span>
             <h1>TMB Nav</h1>
         </div>
+        <nav class="header-menu">
+            <a href="#sugerencias">
+                <span class="material-symbols-outlined" style="font-size: 20px;">lightbulb</span>
+                Sugerencias
+            </a>
+            <a href="#contacto">
+                <span class="material-symbols-outlined" style="font-size: 20px;">mail</span>
+                Contacto
+            </a>
+        </nav>
     </header>
 
     <div class="container">
@@ -700,7 +756,19 @@
         </section>
     </div>
 
+    <footer>
+        <div class="footer-content">
+            <p>TMB Nav - Manual de Usuario Interactivo</p>
+            <div class="footer-copyright">
+                &copy; <span id="current-year"></span> Todos los derechos reservados | TMB Nav
+            </div>
+        </div>
+    </footer>
+
     <script>
+        // Actualizar el año automáticamente
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
         document.addEventListener('DOMContentLoaded', () => {
             const defaultTab = 'como-empezar';
 

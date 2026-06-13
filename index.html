@@ -64,7 +64,7 @@
             padding: 1.2rem 2rem;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-start;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -77,33 +77,36 @@
             gap: 15px;
         }
 
-        .header-menu {
+        .footer-menu {
             display: flex;
             gap: 2rem;
             align-items: center;
+            justify-content: center;
+            margin: 1.5rem 0;
         }
 
-        .header-menu a {
-            color: white;
+        .footer-menu a {
+            color: var(--text-muted);
             text-decoration: none;
             font-weight: 500;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: color 0.3s ease;
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        .header-menu a:hover {
+        .footer-menu a:hover {
             color: var(--tmb-orange);
         }
 
         @media (max-width: 768px) {
-            .header-menu {
+            .footer-menu {
                 gap: 1rem;
+                flex-direction: column;
             }
 
-            .header-menu a {
+            .footer-menu a {
                 font-size: 0.9rem;
             }
         }
@@ -752,16 +755,6 @@
             <span class="material-symbols-outlined icon-bus">directions_bus</span>
             <h1>TMB Nav</h1>
         </div>
-        <nav class="header-menu">
-            <a href="#sugerencias">
-                <span class="material-symbols-outlined" style="font-size: 20px;">lightbulb</span>
-                Sugerencias
-            </a>
-            <a href="#contacto">
-                <span class="material-symbols-outlined" style="font-size: 20px;">mail</span>
-                Contacto
-            </a>
-        </nav>
     </header>
 
     <div class="container">
@@ -1071,6 +1064,16 @@
     <footer>
         <div class="footer-content">
             <p>TMB Nav - Manual de Usuario Interactivo</p>
+            <nav class="footer-menu">
+                <a href="#sugerencias">
+                    <span class="material-symbols-outlined">lightbulb</span>
+                    Sugerencias
+                </a>
+                <a href="#contacto">
+                    <span class="material-symbols-outlined">mail</span>
+                    Contacto
+                </a>
+            </nav>
             <div class="footer-copyright">
                 &copy; <span id="current-year"></span> Todos los derechos reservados | TMB Nav
             </div>

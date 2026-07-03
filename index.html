@@ -1046,22 +1046,9 @@
         <section id="videos" class="feature-section tab-content" data-tab="videos">
             <div class="feature-text-container full-width">
                 <h3><span class="material-symbols-outlined">video_library</span>Videos</h3>
-                <p>Vídeos de ejemplo y tutoriales.</p>
+                <p>Vídeos de tutoriales cargados desde Cloudinary.</p>
 
-                <div class="video-grid">
-                    <article class="video-card">
-                        <video controls src="./assets/video/ejemplo1.mp4">Tu navegador no soporta video.</video>
-                        <h4>Ejemplo 1</h4>
-                    </article>
-                    <article class="video-card">
-                        <video controls src="./assets/video/ejemplo2.mp4">Tu navegador no soporta video.</video>
-                        <h4>Ejemplo 2</h4>
-                    </article>
-                    <article class="video-card">
-                        <video controls src="./assets/video/ejemplo3.mp4">Tu navegador no soporta video.</video>
-                        <h4>Ejemplo 3</h4>
-                    </article>
-                </div>
+                <div class="video-grid"></div>
             </div>
         </section>
 
@@ -1135,7 +1122,7 @@
             }
         });
 
-        // Cargar vídeos desde un manifiesto JSON en assets/videos/ o assets/video/
+        // Cargar vídeos desde un manifiesto JSON con URLs de Cloudinary
         (function loadVideos() {
             const possibleManifests = ['./assets/videos/videos.json', './assets/video/videos.json'];
             const container = document.querySelector('#videos .video-grid');
@@ -1147,21 +1134,22 @@
             function renderList(list) {
                 if (!container) return;
                 container.innerHTML = '';
-                list.forEach(file => {
+                list.forEach(item => {
+                    const url = typeof item === 'string' ? item : item.url;
+                    const title = typeof item === 'string' ? basename(item) : (item.title || basename(url));
+                    if (!url) return;
+
                     const article = document.createElement('article');
                     article.className = 'video-card';
 
                     const video = document.createElement('video');
                     video.controls = true;
-                    // Prefer plural 'videos' folder if exists in path, but use provided filename relative to both
-                    const path1 = `./assets/videos/${encodeURIComponent(file)}`;
-                    const path2 = `./assets/video/${encodeURIComponent(file)}`;
-
-                    // Try path2 first (existing folder), but set src to path2 — server will serve correct file
-                    video.src = path2;
+                    video.src = url;
+                    video.setAttribute('playsinline', '');
+                    video.setAttribute('preload', 'metadata');
 
                     const h4 = document.createElement('h4');
-                    h4.textContent = basename(file);
+                    h4.textContent = title;
 
                     article.appendChild(video);
                     article.appendChild(h4);
@@ -1185,8 +1173,7 @@
                     }
                 }
 
-                // Si no hay manifiesto, intentar detectar algunos nombres comunes
-                if (container) container.innerHTML = '<p style="color:var(--text-muted)">No se ha encontrado un manifiesto de vídeos. Crear <code>assets/video/videos.json</code> con una lista de archivos MP4.</p>';
+                if (container) container.innerHTML = '<p style="color:var(--text-muted)">No se ha encontrado un manifiesto de vídeos. Crea <code>assets/video/videos.json</code> con URLs de Cloudinary y títulos opcionales.</p>';
             })();
         })();
     </script>

@@ -1,5 +1,14 @@
 [
-  "Como marcar paradas.mp4",
-  "Como usar el boton de cambio de recorrido rapido.mp4",
-  "Como usar marcadore con mensage en la linea.mp4"
+  {
+    "url": "https://res.cloudinary.com/ojg40nrw/video/upload/v1783054572/Como_usar_marcadore_con_mensage_en_la_linea_wra8t0.mp4",
+    "title": "Como usar marcadore con mensaje en la linea"
+  },
+  {
+    "url": "https://res.cloudinary.com/ojg40nrw/video/upload/v1783054571/Como_marcar_paradas_t1vnce.mp4",
+    "title": "Como marcar paradas"
+  },
+  {
+    "url": "https://res.cloudinary.com/ojg40nrw/video/upload/v1783054569/Como_usar_el_boton_de_cambio_de_recorrido_rapido_phiqnw.mp4",
+    "title": "Como usar el boton de cambio de recorrido rapido"
+  }
 ]

@@ -745,6 +745,36 @@
             color: #808080;
             font-size: 0.9rem;
         }
+        /* --- VIDEOS --- */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .video-card {
+            background: var(--surface-light);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            padding: 0.5rem;
+            box-shadow: var(--shadow);
+            text-align: left;
+        }
+
+        .video-card video {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            background: #000;
+        }
+
+        .video-card h4 {
+            margin-top: 0.5rem;
+            color: var(--tmb-red);
+            font-size: 1rem;
+        }
     </style>
 </head>
 
@@ -765,10 +795,11 @@
 
             <div class="hero-tabs">
                 <div class="hero-tab-buttons">
-                    <a class="hero-tab-link active" data-tab="como-empezar">¿Cómo empezar?</a>
-                    <a class="hero-tab-link" data-tab="configuracion">Configuración</a>
-                    <a class="hero-tab-link" data-tab="telefonos">Teléfonos</a>
-                </div>
+                        <a class="hero-tab-link active" data-tab="como-empezar">¿Cómo empezar?</a>
+                        <a class="hero-tab-link" data-tab="configuracion">Configuración</a>
+                        <a class="hero-tab-link" data-tab="telefonos">Teléfonos</a>
+                        <a class="hero-tab-link" data-tab="videos">Videos</a>
+                    </div>
             </div>
         </section>
 
@@ -1012,8 +1043,27 @@
             </div>
         </section>
 
-        
+        <section id="videos" class="feature-section tab-content" data-tab="videos">
+            <div class="feature-text-container full-width">
+                <h3><span class="material-symbols-outlined">video_library</span>Videos</h3>
+                <p>Vídeos de ejemplo y tutoriales.</p>
 
+                <div class="video-grid">
+                    <article class="video-card">
+                        <video controls src="./assets/video/ejemplo1.mp4">Tu navegador no soporta video.</video>
+                        <h4>Ejemplo 1</h4>
+                    </article>
+                    <article class="video-card">
+                        <video controls src="./assets/video/ejemplo2.mp4">Tu navegador no soporta video.</video>
+                        <h4>Ejemplo 2</h4>
+                    </article>
+                    <article class="video-card">
+                        <video controls src="./assets/video/ejemplo3.mp4">Tu navegador no soporta video.</video>
+                        <h4>Ejemplo 3</h4>
+                    </article>
+                </div>
+            </div>
+        </section>
 
     <footer>
         <div class="footer-content">
@@ -1084,6 +1134,61 @@
                 });
             }
         });
+
+        // Cargar vídeos desde un manifiesto JSON en assets/videos/ o assets/video/
+        (function loadVideos() {
+            const possibleManifests = ['./assets/videos/videos.json', './assets/video/videos.json'];
+            const container = document.querySelector('#videos .video-grid');
+
+            function basename(filename) {
+                return filename.replace(/\.[^/.]+$/, "");
+            }
+
+            function renderList(list) {
+                if (!container) return;
+                container.innerHTML = '';
+                list.forEach(file => {
+                    const article = document.createElement('article');
+                    article.className = 'video-card';
+
+                    const video = document.createElement('video');
+                    video.controls = true;
+                    // Prefer plural 'videos' folder if exists in path, but use provided filename relative to both
+                    const path1 = `./assets/videos/${encodeURIComponent(file)}`;
+                    const path2 = `./assets/video/${encodeURIComponent(file)}`;
+
+                    // Try path2 first (existing folder), but set src to path2 — server will serve correct file
+                    video.src = path2;
+
+                    const h4 = document.createElement('h4');
+                    h4.textContent = basename(file);
+
+                    article.appendChild(video);
+                    article.appendChild(h4);
+                    container.appendChild(article);
+                });
+            }
+
+            // Intentar cargar los manifiestos en orden
+            (async () => {
+                for (const m of possibleManifests) {
+                    try {
+                        const res = await fetch(m);
+                        if (!res.ok) continue;
+                        const list = await res.json();
+                        if (Array.isArray(list) && list.length) {
+                            renderList(list);
+                            return;
+                        }
+                    } catch (e) {
+                        // Ignorar y probar siguiente
+                    }
+                }
+
+                // Si no hay manifiesto, intentar detectar algunos nombres comunes
+                if (container) container.innerHTML = '<p style="color:var(--text-muted)">No se ha encontrado un manifiesto de vídeos. Crear <code>assets/video/videos.json</code> con una lista de archivos MP4.</p>';
+            })();
+        })();
     </script>
 </body>
 

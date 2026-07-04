@@ -1078,27 +1078,31 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const defaultTab = 'como-empezar';
+            const tabLinks = document.querySelectorAll('.hero-tab-link');
+
+            function activateTab(tabName) {
+                tabLinks.forEach(item => item.classList.toggle('active', item.dataset.tab === tabName));
+
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.toggle('active', content.dataset.tab === tabName);
+                });
+
+                const normalizedTab = tabName || defaultTab;
+                if (window.location.hash !== `#${normalizedTab}`) {
+                    history.replaceState(null, '', `#${normalizedTab}`);
+                }
+            }
 
             // Configurar handlers de los botones
-            document.querySelectorAll('.hero-tab-link').forEach(link => {
+            tabLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const tabName = link.dataset.tab;
-
-                    document.querySelectorAll('.hero-tab-link').forEach(item => item.classList.remove('active'));
-                    link.classList.add('active');
-
-                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-                    document.querySelectorAll(`.tab-content[data-tab="${tabName}"]`).forEach(content => content.classList.add('active'));
+                    activateTab(link.dataset.tab);
                 });
             });
 
-            // Mostrar la pestaña por defecto
-            document.querySelectorAll('.hero-tab-link').forEach(item => item.classList.remove('active'));
-            document.querySelectorAll(`.hero-tab-link[data-tab="${defaultTab}"]`).forEach(btn => btn.classList.add('active'));
-
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            document.querySelectorAll(`.tab-content[data-tab="${defaultTab}"]`).forEach(content => content.classList.add('active'));
+            const initialTab = (window.location.hash || '').replace('#', '').trim() || defaultTab;
+            activateTab(initialTab);
 
             // Manejar el formulario de sugerencias
             const suggestionsForm = document.getElementById('suggestions-form');
